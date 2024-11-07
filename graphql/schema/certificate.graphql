@@ -1,0 +1,119 @@
+"""
+CreateCertificateInput is used for create Certificate object.
+"""
+input CreateCertificateInput {
+    """
+    Common name of the certificate
+    """
+    commonName: String!
+    """
+    Subject alternative name of the certificate
+    """
+    subjectAlternativeName: [String!]
+    """
+    Organization name of the certificate
+    """
+    organization: String
+    """
+    Organizational unit name of the certificate
+    """
+    organizationalUnit: String
+    """
+    Country code of the certificate
+    """
+    country: String
+    """
+    State or province of the certificate
+    """
+    state: String
+    """
+    Locality of the certificate
+    """
+    locality: String
+    """
+    Street address of the certificate
+    """
+    streetAddress: String
+    """
+    Key type of the certificate
+    """
+    keyType: KeyType!
+    acmeAccountID: ID!
+    dnsProviderID: ID!
+}
+
+"""
+UpdateCertificateInput is used for update Certificate object.
+"""
+input UpdateCertificateInput {
+    id: ID! @model(name: "Certificate")
+    """
+    Common name of the certificate
+    """
+    commonName: String
+    """
+    Subject alternative name of the certificate
+    """
+    subjectAlternativeName: [String!]
+    """
+    Organization name of the certificate
+    """
+    organization: String
+    """
+    Organizational unit name of the certificate
+    """
+    organizationalUnit: String
+    """
+    Country code of the certificate
+    """
+    country: String
+    """
+    State or province of the certificate
+    """
+    state: String
+    """
+    Locality of the certificate
+    """
+    locality: String
+    """
+    Street address of the certificate
+    """
+    streetAddress: String
+    """
+    Key type of the certificate
+    """
+    keyType: KeyType
+    acmeAccountID: ID @model(name: "AcmeAccount")
+    dnsProviderID: ID @model(name: "DnsProvider")
+}
+
+extend type Mutation {
+    """
+    Create a new certificate
+    """
+    createCertificate(input: CreateCertificateInput!): Certificate!
+    """
+    Update an existing certificate
+    This will trigger the issuance of a new certificate
+    """
+    updateCertificate(input: UpdateCertificateInput!): Certificate!
+    """
+    Delete a certificate
+    """
+    deleteCertificate(id: ID! @model(name: "Certificate")): Boolean!
+    """
+    Issue a certificate
+    """
+    issueCertificate(id: ID! @model(name: "Certificate")): Boolean!
+}
+
+extend type Query {
+    """
+    Get a list of all certificates
+    """
+    certificates(first: Int, after: Cursor, last: Int, before: Cursor, orderBy: CertificateOrder): CertificateConnection!
+    """
+    Get a specific certificate by ID
+    """
+    certificate(id: ID! @model(name: "Certificate")): Certificate
+}

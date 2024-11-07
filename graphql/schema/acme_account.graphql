@@ -1,0 +1,124 @@
+"""
+CreateAcmeAccountInput is used for create AcmeAccount object.
+"""
+input CreateAcmeAccountInput {
+    """
+    Name of the ACME account
+    """
+    name: String!
+    """
+    Description of the ACME account
+    """
+    description: String
+    """
+    Email address associated with the ACME account
+    """
+    email: String!
+    """
+    Type of private key associated with the ACME account
+    """
+    keyType: KeyType!
+    """
+    External Account Binding (EAB) key ID
+    """
+    eabKeyID: String
+    """
+    External Account Binding (EAB) HMAC key
+    """
+    eabHmacKey: String
+    """
+    The ID of the ACME server associated with the account
+    """
+    acmeServerID: ID!
+}
+
+"""
+UpdateAcmeAccountInput is used for update AcmeAccount object.
+"""
+input UpdateAcmeAccountInput {
+    """
+    ID of the ACME account
+    """
+    id: ID! @model(name: "AcmeAccount")
+    """
+    Name of the ACME account
+    """
+    name: String!
+    """
+    Description of the ACME account
+    """
+    description: String
+}
+
+"""
+UpdateAcmeAccountDangerousInput is used for update AcmeAccount object.
+"""
+input UpdateAcmeAccountDangerousInput {
+    """
+    ID of the ACME account
+    """
+    id: ID! @model(name: "AcmeAccount")
+    """
+    Name of the ACME account
+    """
+    name: String!
+    """
+    Description of the ACME account
+    """
+    description: String
+    """
+    Email address associated with the ACME account
+    """
+    email: String!
+    """
+    Type of private key associated with the ACME account
+    """
+    keyType: KeyType!
+    """
+    External Account Binding (EAB) key ID
+    """
+    eabKeyID: String
+    """
+    External Account Binding (EAB) HMAC key
+    """
+    eabHmacKey: String
+    """
+    The ID of the ACME server associated with the account
+    """
+    acmeServerID: ID!
+}
+
+extend type Mutation {
+    """
+    Create a new ACME account
+    """
+    createAcmeAccount(input: CreateAcmeAccountInput!): AcmeAccount!
+
+    """
+    Update an existing ACME account
+    """
+    updateAcmeAccount(input: UpdateAcmeAccountInput!): AcmeAccount!
+
+    """
+    Dangerous Update an existing ACME account
+    It may cause the ACME account to be re-registered with the ACME server
+    """
+    updateAcmeAccountDangerous(input: UpdateAcmeAccountDangerousInput!): AcmeAccount!
+
+    """
+    Delete an existing ACME account
+    """
+    deleteAcmeAccount(id: ID! @model(name: "AcmeAccount")): Boolean!
+}
+
+extend type Query {
+    """
+    Get a list of all ACME accounts
+    """
+    acmeAccounts(first: Int, after: Cursor, last: Int, before: Cursor, orderBy: AcmeAccountOrder): AcmeAccountConnection!
+
+    """
+    Get a specific ACME account by ID
+    """
+    acmeAccount(id: ID! @model(name: "AcmeAccount")): AcmeAccount!
+}

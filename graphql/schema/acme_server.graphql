@@ -1,0 +1,92 @@
+"""
+CreateAcmeServerInput is used for create AcmeServer object.
+"""
+input CreateAcmeServerInput {
+    """
+    Name of the ACME server
+    """
+    name: String!
+    """
+    Description of the ACME server
+    """
+    description: String
+    """
+    URL of the ACME server
+    """
+    url: String!
+}
+
+"""
+UpdateAcmeServerInput is used for update AcmeServer object.
+"""
+input UpdateAcmeServerInput {
+    """
+    ID of the ACME server
+    """
+    id: ID! @model(name: "AcmeServer")
+    """
+    Name of the ACME server
+    """
+    name: String!
+    """
+    Description of the ACME server
+    """
+    description: String
+}
+
+"""
+UpdateAcmeServerDangerousInput is used for update AcmeServer object.
+"""
+input UpdateAcmeServerDangerousInput {
+    """
+    ID of the ACME server
+    """
+    id: ID! @model(name: "AcmeServer")
+    """
+    Name of the ACME server
+    """
+    name: String!
+    """
+    Description of the ACME server
+    """
+    description: String
+    """
+    URL of the ACME server
+    """
+    url: String!
+}
+
+type Mutation {
+    """
+    Create a new ACME server
+    """
+    createAcmeServer(input: CreateAcmeServerInput!): AcmeServer!
+
+    """
+    Update an existing ACME server
+    """
+    updateAcmeServer(input: UpdateAcmeServerInput!): AcmeServer!
+
+    """
+    Dangerously update an existing ACME server
+    It may cause the ACME server to not be working properly
+    """
+    updateAcmeServerDangerous(input: UpdateAcmeServerDangerousInput!): AcmeServer!
+
+    """
+    Delete an existing ACME server
+    """
+    deleteAcmeServer(id: ID!): Boolean!
+}
+
+extend type Query {
+    """
+    Get a list of all ACME servers
+    """
+    acmeServers(first: Int, after: Cursor, last: Int, before: Cursor, orderBy: AcmeServerOrder): AcmeServerConnection!
+
+    """
+    Get a specific ACME server by ID
+    """
+    acmeServer(id: ID! @model(name: "AcmeServer")): AcmeServer!
+}

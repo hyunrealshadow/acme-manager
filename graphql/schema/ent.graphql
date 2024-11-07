@@ -1,0 +1,489 @@
+directive @goField(forceResolver: Boolean, name: String, omittable: Boolean) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @goModel(model: String, models: [String!], forceGenerate: Boolean) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+type AcmeAccount implements Node {
+  id: ID! @model(name: "AcmeAccount")
+  """
+  Name of the ACME account
+  """
+  name: String!
+  """
+  Description of the ACME account
+  """
+  description: String
+  """
+  Email address associated with the ACME account
+  """
+  email: String!
+  """
+  Type of private key associated with the ACME account
+  """
+  keyType: KeyType!
+  """
+  Fingerprint of the private key associated with the ACME account
+  """
+  keyFingerprint: String!
+  """
+  External Account Binding (EAB) key ID
+  """
+  eabKeyID: String
+  """
+  External Account Binding (EAB) HMAC key
+  """
+  eabHmacKey: String
+  """
+  Time the ACME account was created
+  """
+  createdAt: Time!
+  """
+  User that created the ACME account
+  """
+  createdBy: ID! @model(name: "User")
+  """
+  Time the ACME account was updated
+  """
+  updatedAt: Time
+  """
+  User that updated the ACME account
+  """
+  updatedBy: ID @model(name: "User")
+  """
+  ACME server associated with the ACME account
+  """
+  acmeServer: AcmeServer!
+}
+"""
+A connection to a list of items.
+"""
+type AcmeAccountConnection {
+  """
+  A list of edges.
+  """
+  edges: [AcmeAccountEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type AcmeAccountEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: AcmeAccount
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
+}
+"""
+Ordering options for AcmeAccount connections
+"""
+input AcmeAccountOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection! = ASC
+  """
+  The field by which to order AcmeAccounts.
+  """
+  field: AcmeAccountOrderField!
+}
+"""
+Properties by which AcmeAccount connections can be ordered.
+"""
+enum AcmeAccountOrderField {
+  CREATED_AT
+}
+type AcmeServer implements Node {
+  id: ID! @model(name: "AcmeServer")
+  """
+  Name of the ACME server
+  """
+  name: String!
+  """
+  Description of the ACME server
+  """
+  description: String
+  """
+  URL of the ACME server
+  """
+  url: String!
+  """
+  Is this a built-in ACME server
+  """
+  builtIn: Boolean!
+  """
+  Does the ACME server require an External Account Binding
+  """
+  externalAccountRequired: Boolean!
+  """
+  Time the ACME server was created
+  """
+  createdAt: Time!
+  """
+  User that created the ACME server
+  """
+  createdBy: ID! @model(name: "User")
+  """
+  Time the ACME server was updated
+  """
+  updatedAt: Time
+  """
+  User that updated the ACME server
+  """
+  updatedBy: ID @model(name: "User")
+}
+"""
+A connection to a list of items.
+"""
+type AcmeServerConnection {
+  """
+  A list of edges.
+  """
+  edges: [AcmeServerEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type AcmeServerEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: AcmeServer
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
+}
+"""
+Ordering options for AcmeServer connections
+"""
+input AcmeServerOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection! = ASC
+  """
+  The field by which to order AcmeServers.
+  """
+  field: AcmeServerOrderField!
+}
+"""
+Properties by which AcmeServer connections can be ordered.
+"""
+enum AcmeServerOrderField {
+  CREATED_AT
+}
+type Certificate implements Node {
+  id: ID! @model(name: "Certificate")
+  """
+  Common name of the certificate
+  """
+  commonName: String!
+  """
+  Subject alternative name of the certificate
+  """
+  subjectAlternativeName: [String!]
+  """
+  Organization name of the certificate
+  """
+  organization: String
+  """
+  Organizational unit name of the certificate
+  """
+  organizationalUnit: String
+  """
+  Country code of the certificate
+  """
+  country: String
+  """
+  State or province of the certificate
+  """
+  state: String
+  """
+  Locality of the certificate
+  """
+  locality: String
+  """
+  Street address of the certificate
+  """
+  streetAddress: String
+  """
+  Key type of the certificate
+  """
+  keyType: KeyType!
+  """
+  Fingerprint of the certificate
+  """
+  fingerprint: String
+  """
+  Status of the certificate
+  """
+  status: Status!
+  """
+  Time the certificate was issued
+  """
+  issuedAt: Time
+  """
+  Time the certificate expires
+  """
+  expiresAt: Time
+  """
+  Time the certificate was created
+  """
+  createdAt: Time!
+  """
+  User that created the certificate
+  """
+  createdBy: ID! @model(name: "User")
+  """
+  Time the certificate was updated
+  """
+  updatedAt: Time
+  """
+  User that updated the certificate
+  """
+  updatedBy: ID @model(name: "User")
+  acmeAccount: AcmeAccount!
+  dnsProvider: DnsProvider!
+}
+"""
+A connection to a list of items.
+"""
+type CertificateConnection {
+  """
+  A list of edges.
+  """
+  edges: [CertificateEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type CertificateEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Certificate
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
+}
+"""
+Ordering options for Certificate connections
+"""
+input CertificateOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection! = ASC
+  """
+  The field by which to order Certificates.
+  """
+  field: CertificateOrderField!
+}
+"""
+Properties by which Certificate connections can be ordered.
+"""
+enum CertificateOrderField {
+  CREATED_AT
+}
+"""
+Define a Relay Cursor type:
+https://relay.dev/graphql/connections.htm#sec-Cursor
+"""
+scalar Cursor
+type DnsProvider implements Node {
+  id: ID! @model(name: "DnsProvider")
+  """
+  Name of the DNS provider
+  """
+  name: String!
+  """
+  Description of the DNS provider
+  """
+  description: String
+  """
+  Type of the DNS provider
+  """
+  type: String!
+  """
+  Configuration of the DNS provider
+  """
+  config: String!
+  """
+  Time the DNS provider was created
+  """
+  createdAt: Time!
+  """
+  User that created the ACME account
+  """
+  createdBy: ID! @model(name: "User")
+  """
+  Time the DNS provider was updated
+  """
+  updatedAt: Time
+  """
+  User that updated the ACME account
+  """
+  updatedBy: ID @model(name: "User")
+}
+"""
+A connection to a list of items.
+"""
+type DnsProviderConnection {
+  """
+  A list of edges.
+  """
+  edges: [DnsProviderEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type DnsProviderEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: DnsProvider
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
+}
+"""
+Ordering options for DnsProvider connections
+"""
+input DnsProviderOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection! = ASC
+  """
+  The field by which to order DnsProviders.
+  """
+  field: DnsProviderOrderField!
+}
+"""
+Properties by which DnsProvider connections can be ordered.
+"""
+enum DnsProviderOrderField {
+  CREATED_AT
+}
+"""
+KeyType is enum for the field key_type
+"""
+enum KeyType @goModel(model: "acme-manager/ent/schema/enum.KeyType") {
+  RSA2048
+  RSA3072
+  RSA4096
+  RSA8192
+  EC256
+  EC384
+}
+"""
+An object with an ID.
+Follows the [Relay Global Object Identification Specification](https://relay.dev/graphql/objectidentification.htm)
+"""
+interface Node @goModel(model: "acme-manager/ent.Noder") {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+"""
+Possible directions in which to order a list of items when provided an `orderBy` argument.
+"""
+enum OrderDirection {
+  """
+  Specifies an ascending order for a given `orderBy` argument.
+  """
+  ASC
+  """
+  Specifies a descending order for a given `orderBy` argument.
+  """
+  DESC
+}
+"""
+Information about pagination in a connection.
+https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: Cursor
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: Cursor
+}
+type Query {
+  """
+  Fetches an object given its ID.
+  """
+  node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+  """
+  Lookup nodes by a list of IDs.
+  """
+  nodes(
+    """
+    The list of node IDs.
+    """
+    ids: [ID!]!
+  ): [Node]!
+}
+"""
+Status is enum for the field status
+"""
+enum Status @goModel(model: "acme-manager/ent/schema/enum.Status") {
+  Pending
+  Succeeded
+  Failed
+}
+"""
+The builtin Time type
+"""
+scalar Time

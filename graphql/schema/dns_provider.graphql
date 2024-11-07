@@ -1,0 +1,96 @@
+"""
+CreateDnsProviderInput is used for create DnsProvider object.
+"""
+input CreateDnsProviderInput {
+    """
+    Name of the DNS provider
+    """
+    name: String!
+    """
+    Description of the DNS provider
+    """
+    description: String
+    """
+    Type of the DNS provider
+    """
+    type: String!
+    """
+    Configuration of the DNS provider
+    """
+    config: String!
+}
+
+"""
+UpdateDnsProviderInput is used for update DnsProvider object.
+"""
+input UpdateDnsProviderInput {
+    """
+    ID of the DNS provider
+    """
+    id: ID! @model(name: "DnsProvider")
+    """
+    Name of the DNS provider
+    """
+    name: String!
+    """
+    Description of the DNS provider
+    """
+    description: String
+}
+
+"""
+Dangerously update an existing DNS provider
+It may cause the DNS provider to not be working properly
+"""
+input UpdateDnsProviderDangerousInput {
+    """
+    ID of the DNS provider
+    """
+    id: ID! @model(name: "DnsProvider")
+    """
+    Name of the DNS provider
+    """
+    name: String!
+    """
+    Description of the DNS provider
+    """
+    description: String
+    """
+    Type of the DNS provider
+    """
+    type: String!
+    """
+    Configuration of the DNS provider
+    """
+    config: String!
+}
+
+extend type Mutation {
+    """
+    Create a new DNS provider
+    """
+    createDnsProvider(input: CreateDnsProviderInput!): DnsProvider!
+    """
+    Update an existing DNS provider
+    """
+    updateDnsProvider(input: UpdateDnsProviderInput!): DnsProvider!
+    """
+    Dangerously update an existing DNS provider
+    """
+    updateDnsProviderDangerous(input: UpdateDnsProviderDangerousInput!): DnsProvider
+    """
+    Delete an existing DNS provider
+    """
+    deleteDnsProvider(id: ID! @model(name: "DnsProvider")): Boolean!
+}
+
+extend type Query {
+    """
+    Get a list of all DNS providers
+    """
+    dnsProviders(first: Int, after: Cursor, last: Int, before: Cursor, orderBy: DnsProviderOrder): DnsProviderConnection!
+    """
+    Get a specific DNS provider by ID
+    """
+    dnsProvider(id: ID! @model(name: "DnsProvider")): DnsProvider
+}
